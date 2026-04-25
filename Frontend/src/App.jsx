@@ -13,6 +13,7 @@ import Emailverified from './components/Emailverified';
 import {ProfileEdit} from './components/ProfileEdit';
 import { DeleteMessage } from './components/DeteleMessage';
 import LiveLocation from './Pages/LiveLocation';
+import Ai_chat from './Pages/Ai_chat';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path='/chat/profile/profileupdate' element={<ProfileEdit/>}/>
           <Route path='/chatContainer/Deletemessage' element={<DeleteMessage/>}/>
           <Route path='/live-location/:receiverId' element={<LiveLocation/>}/>
+          <Route path='/Ai_chat' element={<Ai_chat/>}/>
             <Route path='*' element={<NotFound/>}/>
       </Routes>
     </>

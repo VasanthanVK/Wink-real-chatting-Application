@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { MessageCircleMore } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function ChatPerson({setSelectedChat}) {
 
@@ -9,6 +11,7 @@ function ChatPerson({setSelectedChat}) {
   const [userProfiles, setUserProfiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!token || !user) {
@@ -83,7 +86,7 @@ console.log(user);
               onError={(e) => {
                 e.target.src = "https://fastly.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI";
               }}
-              className="w-16 h-16 rounded-full object-cover"
+              className="w-16 h-16 rounded-full object-cover shadow-2xl shadow-slate-900 shadow-inner"
               alt={profile.Name || "profile"}
             />
 
@@ -99,6 +102,9 @@ console.log(user);
             </div>
           </div>
         ))}
+        <div className='mt-auto p-4 sticky bottom-0 bg-white'>
+          <button className='flex justify-center items-center gap-2 text-center w-full py-3 text-xl font-extrabold bg-gray-800 hover:bg-black hover:text-white cursor-pointer rounded-full transition-colors shadow-md' onClick={() => navigate("/Ai_chat")}><MessageCircleMore className=''/> Ask Wink</button>
+        </div>
     </div>
   )
 }

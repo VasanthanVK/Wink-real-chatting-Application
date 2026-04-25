@@ -4,6 +4,7 @@ import ConnectDB from "./utils/DB.js";
 import Registerroutes from "./Routes/registerRoutes.js";
 import ProfileRoutes from "./Routes/ProfileRoutes.js";
 import messagerouter from "./Routes/MessageRoutes.js"
+import Airouter from "./Routes/AiRoute.js"
 import OtpRoutes from "./Routes/OtpRoutes.js"
 import cors from "cors"
 import path from "path";
@@ -41,6 +42,7 @@ app.use(Registerroutes)
 app.use(ProfileRoutes)
 app.use(messagerouter)
 app.use(OtpRoutes)
+app.use(Airouter)
 
 
 ConnectDB()
