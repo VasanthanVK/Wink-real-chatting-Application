@@ -9,6 +9,7 @@ A modern, real-time messaging application built with Node.js, Express, and Socke
 - **OTP Verification**: Email-based OTP verification for secure account access.
 - **File Sharing**: Upload and share images and files with other users.
 - **User Management**: Profile management and user search.
+- **Wink AI Assistant**: An intelligent chatbot powered by Google Gemini (gemini-2.0-flash), offering conversational support and coding assistance directly within the app.
 - **Responsive UI**: Clean and modern interface built with React.
 
 ## Tech Stack
@@ -22,6 +23,7 @@ A modern, real-time messaging application built with Node.js, Express, and Socke
 - **bcrypt**: Password hashing.
 - **Multer**: Middleware for handling file uploads.
 - **Nodemailer**: Sending OTP emails.
+- **Google Gen AI SDK (`@google/genai`)**: Integration with Gemini AI for the Wink AI Assistant.
 
 ### Frontend
 - **React**: JavaScript library for building user interfaces.
@@ -82,6 +84,7 @@ Frontend/
      JWT_SECRET=your_jwt_secret
      EMAIL_USER=your_email
      EMAIL_PASS=your_email_password
+     GEMINI_API_KEY=your_google_gemini_api_key
      ```
 
 3. **Frontend Setup**
@@ -133,6 +136,9 @@ Frontend/
 ### Messages
 - `GET /api/messages/:userId` - Get messages between users
 - `POST /api/messages/:userId` - Send a message
+
+### Wink AI
+- `POST /api/v1/Aichat` - Send a message to the Wink AI Assistant
 
 ### Uploads
 - `POST /api/upload/image` - Upload an image
