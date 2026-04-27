@@ -5,6 +5,7 @@ import {
   RocketLaunchIcon,
   VideoCameraIcon,
 } from "@heroicons/react/24/outline";
+import ReactMarkdown from "react-markdown";
 
 function Ai_chat() {
   const [message, setMessage] = useState("");
@@ -68,8 +69,7 @@ function Ai_chat() {
                   ? 'bg-blue-600 text-white self-end ml-auto' 
                   : 'bg-green-900 text-white self-start'
               }`}
-            >
-              {item.text}
+            > <ReactMarkdown>{item.text}</ReactMarkdown>
             </div>
           ))
         ) : (
