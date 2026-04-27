@@ -33,7 +33,7 @@ function Inputotp({ isOpen, onClose, email }) {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("OTP verified successfully");
+            toast.success("OTP verified successfully");
         onClose(); 
         toast.success("Email verified successfully! Redirecting to signup...");
         setTimeout(() => {

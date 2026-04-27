@@ -25,7 +25,7 @@ function Chatcontainer({ selectedChat }) {
   const [uploadedImage, setUploadedImage] = useState(null); // url after upload
   const senderid = currentuser?._id;
   const receiverid = selectedChat?._id;
-  console.log(messages);
+ 
 
   // Fetch chat history when selectedChat changes
   useEffect(() => {
@@ -147,7 +147,7 @@ function Chatcontainer({ selectedChat }) {
       senderID: senderid,
       receiverID: receiverid,
     });
-    console.log("delete", messageId);
+   
     setMessages((prev) =>
       prev.filter((msg) => String(msg._id) !== String(messageId)),
     );
@@ -193,8 +193,7 @@ function Chatcontainer({ selectedChat }) {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       const data = await res.json();
-      console.log(data);
-
+     
       if (!data.imageUrl) {
         setError("Failed to upload image");
         return;
@@ -262,7 +261,7 @@ function Chatcontainer({ selectedChat }) {
         }
       },
       (err) => {
-        console.log(err);
+      
         setError("Failed to get location. Please enable location permission.");
       },
       { enableHighAccuracy: true },

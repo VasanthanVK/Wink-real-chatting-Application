@@ -68,8 +68,7 @@ function ChatPerson({setSelectedChat}) {
   if (!userProfiles.length) {
     return <div className="h-full flex items-center justify-center text-gray-500">No users available</div>;
   }
-console.log(userProfiles);
-console.log(user);
+;
 
   return (
     <div className="h-full bg-white flex flex-col flex-1 overflow-y-auto p-2 space-y-2">

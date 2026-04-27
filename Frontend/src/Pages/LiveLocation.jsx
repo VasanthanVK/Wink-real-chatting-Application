@@ -49,7 +49,7 @@ export default function LiveLocation() {
   useEffect(() => {
 
     const handleReceiveLocation = (data) => {
-      console.log("Live Location:", data);
+    
 
       setUserLocation([
         data.latitude,

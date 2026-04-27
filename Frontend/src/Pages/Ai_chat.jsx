@@ -31,8 +31,6 @@ function Ai_chat() {
 
     const data=await res.json();
 
-    console.log(data);
-    // Append AI reply
     setReply((prev)=> [...prev , { text: data.reply, sender: "ai" }])
     
   }
