@@ -32,7 +32,7 @@ export const initSocket = (server) => {
     });
 
     socket.on("messageDeliverd",async(data)=>{
-      console.log("Message delivered:",data);
+      //console.log("Message delivered:",data);
 
       await Message.findByIdAndUpdate(data.messageID,{status:"delivered"},{new:true});
 
@@ -77,7 +77,7 @@ export const initSocket = (server) => {
 
     socket.on("disconnect", () => {
       delete userSocketMap[userId];
-      console.log("User Disconnected:", userId);
+    //  console.log("User Disconnected:", userId);
     });
   });
 };

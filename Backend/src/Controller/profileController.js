@@ -36,7 +36,7 @@ export const updateProfile = async (req, res) => {
 
     // ✅ check user exists
     const user = await Register.findOne({ _id: id });
-console.log(user);
+
 
     if (!user) {
       return res.status(404).json({
@@ -64,7 +64,7 @@ console.log(user);
       updatedData,
       { new: true }
     );
-    console.log(updatedUser);
+   
     
 
     return res.status(200).json({

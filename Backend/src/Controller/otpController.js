@@ -56,7 +56,7 @@ export const verifyOTP = async (req, res) => {
 
   // ✅ await added
   const record = await Otp.findOne({ Email: email });
-  console.log(record);
+  
   
 
   if (!record) {

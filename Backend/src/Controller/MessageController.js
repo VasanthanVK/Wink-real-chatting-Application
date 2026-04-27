@@ -5,7 +5,7 @@ import { io, getReceiverSocketId } from "../Socket.js";
 export const sendMessage = async (req, res) => {
   try {
     const { senderID, receiverID, message, messageType, latitude, longitude } = req.body;
-    // console.log(req.body);
+   
     
 
     if (!senderID || !receiverID) {
@@ -47,13 +47,11 @@ export const sendMessage = async (req, res) => {
 
     if (receiverSocketId) {
       io.to(receiverSocketId).emit("receiveMessage", newMessage);
-      //console.log("Message sent to:", receiverSocketId + " for userID: " + receiverID + " with message: " + newMessage);
     }
 
     res.status(201).json(newMessage);
 
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: "Server error" });
   }
 };
@@ -72,7 +70,6 @@ export const getMessages = async (req, res) => {
 
     res.status(200).json(messages);
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: "Server error" });
   }
 };
@@ -101,8 +98,7 @@ export const deleteMessage = async (req, res) => {
       }
     }
 
-    console.log("Message senderID:", message.senderID.toString());
-    console.log("Actual senderId:", senderId);
+   
     
     if (message.senderID.toString() !== senderId) {
       return res.status(403).json({
@@ -128,7 +124,7 @@ export const deleteMessage = async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error.message);
+  
     return res.status(500).json({
       message: "Server error",
     });

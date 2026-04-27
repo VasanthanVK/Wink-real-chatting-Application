@@ -24,7 +24,7 @@ export const register = async (req, res) => {
 
     // ✅ Null check பண்றோம்
     const otpRecord = await Otp.findOne({ Email });
-    console.log(otpRecord);
+    
     
     if (!otpRecord) {
       return res.status(400).json({ message: "OTP record not found. Please verify your email." });
@@ -67,7 +67,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { Email, Password } = req.body;
-    console.log(Email, Password);
+   
     const existingUser = await Register.findOne({ Email });
 
     if (!existingUser) {
