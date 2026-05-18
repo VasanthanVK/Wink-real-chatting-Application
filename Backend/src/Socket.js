@@ -7,8 +7,9 @@ const userSocketMap = {};
 export const initSocket = (server) => {
   io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: ["https://your-frontend.vercel.app", "http://localhost:5173"],
       methods: ["GET", "POST"],
+      credentials: true
     },
   });
 
@@ -39,34 +40,34 @@ export const initSocket = (server) => {
       }
     });
 
-    socket.on("messageDeliverd",async(data)=>{
+    socket.on("messageDeliverd", async (data) => {
       //console.log("Message delivered:",data);
 
-      await Message.findByIdAndUpdate(data.messageID,{status:"delivered"},{new:true});
+      await Message.findByIdAndUpdate(data.messageID, { status: "delivered" }, { new: true });
 
-      io.to(userSocketMap[data.senderID]).emit("messageStatusUpdate",{
-        messageID:data.messageID,
-        status:"delivered"
+      io.to(userSocketMap[data.senderID]).emit("messageStatusUpdate", {
+        messageID: data.messageID,
+        status: "delivered"
       })
       // Here you can update message status in DB to "delivered" if needed
     })
 
     socket.on("messageSeen", async ({ chatUserId }) => {
 
-  const messages = await Message.updateMany(
-    {
-      senderId: chatUserId,
-      receiverId: socket.userId,
-      status: { $ne: "seen" }
-    },
-    { status: "seen" }
-  );
+      const messages = await Message.updateMany(
+        {
+          senderId: chatUserId,
+          receiverId: socket.userId,
+          status: { $ne: "seen" }
+        },
+        { status: "seen" }
+      );
 
-  const senderSocket = userSocketMap[chatUserId];
+      const senderSocket = userSocketMap[chatUserId];
 
-  io.to(senderSocket).emit("messagesSeen");
-});
-    
+      io.to(senderSocket).emit("messagesSeen");
+    });
+
 
     // ✅ SEND LOCATION EVENT
     socket.on("sendLocation", (data) => {
@@ -85,7 +86,7 @@ export const initSocket = (server) => {
 
     socket.on("disconnect", () => {
       delete userSocketMap[userId];
-    //  console.log("User Disconnected:", userId);
+      //  console.log("User Disconnected:", userId);
     });
   });
 };
