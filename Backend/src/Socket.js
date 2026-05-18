@@ -1,6 +1,5 @@
 import { Server } from "socket.io";
 import { Message } from "./Model/MessageModel.js";
-import { socket } from "../../Frontend/src/Socket.js";
 
 let io;
 const userSocketMap = {};
