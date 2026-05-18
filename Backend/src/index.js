@@ -29,7 +29,7 @@ const app=express();
 const server = http.createServer(app);
 
 app.use(cors({
-  origin:["http://localhost:5173","https://your-frontend.vercel.app"], // your React port
+  origin:["http://localhost:5173","https://wink-real-chatting-application-7xbxxgm7j.vercel.app"], // your React port
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
