@@ -18,9 +18,18 @@ export const initSocket = (server) => {
 
     if (userId) {
       userSocketMap[userId] = socket.id;
+      socket.userId = userId; // Save userId to socket object for later use
     }
 
     console.log("User Connected:", userId);
+
+    socket.on("join", (userId) => {
+      if (userId) {
+        userSocketMap[userId] = socket.id;
+        socket.userId = userId;
+      }
+    });
+
 
     // ✅ RECEIVE MESSAGE EVENT
     socket.on("sendMessage", (data) => {

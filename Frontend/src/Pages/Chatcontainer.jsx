@@ -21,7 +21,7 @@ function Chatcontainer({ selectedChat }) {
   const isConnectedRef = useRef(false); // ✅ track connection state
   const currentuser = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
-  const [selectedImage, setSelectedImage] = useState(null); // File preview
+  //const [selectedImage, setSelectedImage] = useState(null); // File preview
   const [uploadedImage, setUploadedImage] = useState(null); // url after upload
   const senderid = currentuser?._id;
   const receiverid = selectedChat?._id;
@@ -61,8 +61,9 @@ function Chatcontainer({ selectedChat }) {
   //  Socket: connect and join room once
   useEffect(() => {
     if (senderid && !isConnectedRef.current) {
+      socket.io.opts.query = { userId: senderid }; // Set userId dynamically
       socket.connect();
-      socket.emit("join", senderid);
+      socket.emit("join", senderid); // Explicit join
       isConnectedRef.current = true;
     }
     return () => {
@@ -77,23 +78,27 @@ function Chatcontainer({ selectedChat }) {
   useEffect(() => {
     const handleReceiveMessage = (data) => {
       if (data && data._id) {
-        setMessages((prev) => {
-          const updated = [...prev, data];
-
-          socket.emit("messageDeliverd", {
-            messageID: data._id,
-            senderID: data.senderID,
-            receiverID: data.receiverID,
-          });
-          // Keep only last 500 messages to prevent memory issues
-          return updated.slice(-500);
+        // Send delivered status regardless of which chat is open
+        socket.emit("messageDeliverd", {
+          messageID: data._id,
+          senderID: data.senderID,
+          receiverID: data.receiverID,
         });
+
+        // Only append the message if it belongs to the currently open chat
+        if (data.senderID === receiverid || data.receiverID === receiverid) {
+          setMessages((prev) => {
+            const updated = [...prev, data];
+            // Keep only last 500 messages to prevent memory issues
+            return updated.slice(-500);
+          });
+        }
       }
     };
 
     socket.on("receiveMessage", handleReceiveMessage);
     return () => socket.off("receiveMessage", handleReceiveMessage);
-  }, []);
+  }, [receiverid]);
 
   useEffect(() => {
     socket.emit("messageSeen", {
@@ -169,9 +174,7 @@ function Chatcontainer({ selectedChat }) {
       if (!file) {
         setError("No file selected");
         return;
-      } else {
-        setSelectedImage(file);
-      }
+      } 
 
       if (!file.type.startsWith("image/")) {
         setError("Please select a valid image file");
@@ -261,8 +264,7 @@ function Chatcontainer({ selectedChat }) {
         }
       },
       (err) => {
-      
-        setError("Failed to get location. Please enable location permission.");
+        setError("Failed to get location. Please enable location permission.",err);
       },
       { enableHighAccuracy: true },
     );

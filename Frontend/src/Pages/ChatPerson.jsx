@@ -76,7 +76,15 @@ function ChatPerson({setSelectedChat}) {
         .map((profile, index) => (
           <div 
             key={profile._id || index} 
-            onClick={() => setSelectedChat(profile)} 
+            onClick={() => {
+              console.log("Clicked on profile:", profile.Name);
+              if (setSelectedChat) {
+                console.log("setSelectedChat is available, calling it...");
+                setSelectedChat(profile);
+              } else {
+                console.log("WARNING: setSelectedChat is not provided as a prop! Are you on the right page?");
+              }
+            }} 
             className="flex items-center gap-7 p-4 border-b text-lg font-semibold cursor-pointer hover:bg-gray-50 transition-colors"
           >
             {/* Profile Image */}

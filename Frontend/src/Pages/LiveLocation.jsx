@@ -22,26 +22,29 @@ export default function LiveLocation() {
 
     if (!userId || !receiverId) return;
 
-    const watchId = navigator.geolocation.watchPosition(
-      (pos) => {
-        const lat = pos.coords.latitude;
-        const lng = pos.coords.longitude;
+    // Use setInterval to get the location every 3 seconds
+    const intervalId = setInterval(() => {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
 
-        setPosition([lat, lng]);
+          setPosition([lat, lng]);
 
-        // ✅ SEND location to receiver
-        socket.emit("sendLocation", {
-          senderID: userId,
-          receiverID: receiverId,
-          latitude: lat,
-          longitude: lng,
-        });
-      },
-      (err) => console.log(err),
-      { enableHighAccuracy: true }
-    );
+          // ✅ SEND location to receiver
+          socket.emit("sendLocation", {
+            senderID: userId,
+            receiverID: receiverId,
+            latitude: lat,
+            longitude: lng,
+          });
+        },
+        (err) => console.log(err),
+        { enableHighAccuracy: true }
+      );
+    }, 3000); // 3 seconds interval
 
-    return () => navigator.geolocation.clearWatch(watchId);
+    return () => clearInterval(intervalId);
 
   }, [userId, receiverId]);
 

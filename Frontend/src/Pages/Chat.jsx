@@ -17,13 +17,13 @@ function Chat() {
 
         {/* LEFT SIDE USERS */}
        <div className="w-[250px] border-r border-white/10 bg-white/10 backdrop-blur-md">
-  <ChatPerson/>
+  <ChatPerson setSelectedChat={setSelectedChat} />
 </div>
 
         {/* RIGHT SIDE CHAT */}
         <div className="flex-1 flex flex-col">
      
-            <Chatcontainer/>
+            <Chatcontainer selectedChat={selectedChat} />
         
         </div>
 
