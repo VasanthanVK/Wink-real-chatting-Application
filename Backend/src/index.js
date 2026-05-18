@@ -29,7 +29,7 @@ const app=express();
 const server = http.createServer(app);
 
 app.use(cors({
-  origin: "http://localhost:5173", // your React port
+  origin:["http://localhost:5173","https://your-frontend.vercel.app"], // your React port
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
@@ -44,6 +44,9 @@ app.use(messagerouter)
 app.use(OtpRoutes)
 app.use(Airouter)
 
+app.get("/",(req,res)=>{
+  res.send("Backend Working ")
+})
 
 ConnectDB()
 
