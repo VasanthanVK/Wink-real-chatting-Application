@@ -4,7 +4,7 @@ import {Routes, Route } from "react-router-dom";
 import Sign_up from './Pages/Sign_up';
 import Sign_in from './Pages/Sign_in';
 import { Toaster } from "react-hot-toast";
-import Chat from './Pages/chat';
+import Chat from './Pages/Chat';
 import Chatcontainer from './Pages/Chatcontainer';
 import ChatPerson from './Pages/ChatPerson';
 import ProfileCard from './Pages/ProfileCard';
